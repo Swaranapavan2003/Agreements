@@ -32,3 +32,4 @@ python-slugify==8.0.4
 flower==2.0.1
 weasyprint==62.3
 aiosmtplib==3.0.1
+stripe
