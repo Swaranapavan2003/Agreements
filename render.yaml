@@ -53,21 +53,18 @@ services:
     name: clm-frontend
     env: static
     buildCommand: npm run build
-    publishPath: dist
+    staticPublishPath: dist
     rootDir: frontend
     envVars:
       - key: VITE_API_URL
-        fromService:
-          type: web
-          name: clm-backend
-          property: url
-
-databases:
-  - type: psql
-    name: clm-db
-    plan: starter
-    postgresMajorVersion: 16
+        sync: false
 
   - type: redis
     name: clm-redis
     plan: free
+
+databases:
+  - type: postgres
+    name: clm-db
+    plan: starter
+    postgresMajorVersion: 16
