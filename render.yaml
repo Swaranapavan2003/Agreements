@@ -11,10 +11,7 @@ services:
           name: clm-db
           property: connectionString
       - key: REDIS_URL
-        fromService:
-          type: redis
-          name: clm-redis
-          property: connectionString
+        value: redis://clm-redis:6379/0
       - key: CORS_ORIGINS
         value: "https://clm-frontend.onrender.com"
       - key: SECRET_KEY
@@ -36,10 +33,7 @@ services:
           name: clm-db
           property: connectionString
       - key: REDIS_URL
-        fromService:
-          type: redis
-          name: clm-redis
-          property: connectionString
+        value: redis://clm-redis:6379/0
       - key: CORS_ORIGINS
         value: "https://clm-frontend.onrender.com"
       - key: SECRET_KEY
@@ -59,12 +53,13 @@ services:
       - key: VITE_API_URL
         sync: false
 
-  - type: redis
+  - type: pserv
     name: clm-redis
-    plan: free
+    env: docker
+    image: redis:7-alpine
 
 databases:
-  - type: postgres
+  - type: psql
     name: clm-db
     plan: starter
     postgresMajorVersion: 16
