@@ -2,8 +2,8 @@ services:
   - type: web
     name: clm-backend
     env: docker
-    dockerContext: backend
-    dockerfilePath: backend/Dockerfile
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
     healthCheckPath: /health
     envVars:
       - key: DATABASE_URL
@@ -22,9 +22,8 @@ services:
   - type: worker
     name: clm-celery-worker
     env: docker
-    dockerContext: backend
-    dockerfilePath: backend/Dockerfile
-    command: celery -A app.workers.celery_app worker --loglevel=info
+    rootDir: backend
+    dockerfilePath: ./Dockerfile.celery
     envVars:
       - key: DATABASE_URL
         sync: false
@@ -43,7 +42,7 @@ services:
     name: clm-frontend
     env: static
     buildCommand: npm run build
-    staticPublishPath: dist
+    publishPath: dist
     rootDir: frontend
     envVars:
       - key: VITE_API_URL
