@@ -56,10 +56,10 @@ services:
   - type: pserv
     name: clm-redis
     env: docker
-    image: redis:7-alpine
+    dockerContext: backend
+    dockerfilePath: backend/Dockerfile.redis
 
 databases:
-  - type: psql
-    name: clm-db
-    plan: starter
-    postgresMajorVersion: 16
+  - name: clm-db
+    plan: free
+    postgresMajorVersion: "16"
