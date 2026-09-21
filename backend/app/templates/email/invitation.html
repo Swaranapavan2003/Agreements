@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>You're invited to {{ org_name }}</h2>
+<p>Hi there,</p>
+<p>{{ inviter_name }} has invited you to join <strong>{{ org_name }}</strong> on {{ app_name }}.</p>
+<a href="{{ accept_url }}" class="button">Accept Invitation</a>
+<p>This invitation will expire in 7 days.</p>
+{% endblock %}

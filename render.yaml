@@ -1,0 +1,73 @@
+services:
+  - type: web
+    name: clm-backend
+    env: docker
+    dockerContext: backend
+    dockerfilePath: backend/Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: clm-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: clm-redis
+          property: connectionString
+      - key: CORS_ORIGINS
+        value: "https://clm-frontend.onrender.com"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: STRIPE_API_KEY
+        sync: false
+
+  - type: worker
+    name: clm-celery-worker
+    env: docker
+    dockerContext: backend
+    dockerfilePath: backend/Dockerfile
+    command: celery -A app.workers.celery_app worker --loglevel=info
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: clm-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: clm-redis
+          property: connectionString
+      - key: CORS_ORIGINS
+        value: "https://clm-frontend.onrender.com"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: STRIPE_API_KEY
+        sync: false
+
+  - type: web
+    name: clm-frontend
+    env: static
+    buildCommand: npm run build
+    publishPath: dist
+    rootDir: frontend
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: clm-backend
+          property: url
+
+databases:
+  - type: psql
+    name: clm-db
+    plan: starter
+    postgresMajorVersion: 16
+
+  - type: redis
+    name: clm-redis
+    plan: free

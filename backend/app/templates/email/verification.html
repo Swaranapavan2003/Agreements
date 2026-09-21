@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Verify your email address</h2>
+<p>Hi {{ name }},</p>
+<p>Thanks for signing up! Please verify your email address to get started.</p>
+<a href="{{ verify_url }}" class="button">Verify Email Address</a>
+<p>This link will expire in 24 hours. If you didn't create an account, you can safely ignore this email.</p>
+{% endblock %}

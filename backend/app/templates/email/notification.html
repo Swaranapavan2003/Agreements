@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}New Notification{% endblock %}
+
+{% block content %}
+<h3>New update from Agreements Platform</h3>
+<p>Hello {{ name }},</p>
+<p>{{ message }}</p>
+<p>
+    <a href="{{ action_link }}" style="display: inline-block; padding: 10px 20px; background-color: #6c757d; color: #fff; text-decoration: none; border-radius: 3px;">View Details</a>
+</p>
+{% endblock %}

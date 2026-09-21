@@ -1,0 +1,20 @@
+# Node.js
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+frontend/.env.*.local
+
+# Python
+backend/venv/
+backend/__pycache__/
+backend/.pytest_cache/
+*.pyc
+
+# Docker/Environment
+.env
+backend/.env
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
