@@ -3,8 +3,10 @@ from sqlalchemy.pool import NullPool
 from app.core.config import settings
 from typing import AsyncGenerator
 
+db_url = settings.database_url.replace("?sslmode=require", "?ssl=require")
+
 engine = create_async_engine(
-    settings.database_url,
+    db_url,
     echo=settings.debug,
     pool_pre_ping=True,
     pool_size=20,
